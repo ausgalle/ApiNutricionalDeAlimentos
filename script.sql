@@ -1,52 +1,44 @@
 CREATE USER 'user_ptyhon'@'localhost' IDENTIFIED BY 'Clas3s1Nt2024_!';
 GRANT CREATE, INSERT, UPDATE, DELETE, SELECT, FILE, EXECUTE ON *.* TO 'user_ptyhon'@'localhost' WITH GRANT OPTION;
 
-CREATE DATABASE db_personas;
+CREATE DATABASE db_nutricional;
 
-CREATE TABLE `db_personas`.`estados` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-    `nombre` VARCHAR(50) NOT NULL UNIQUE,
-    PRIMARY KEY(`id`)
+-- Tabla que contiene la información general de cada alimento
+CREATE TABLE alimentos (
+    id_alimento INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_comun VARCHAR(255) NOT NULL UNIQUE,
+    nombre_cientifico VARCHAR(255),
+    descripcion TEXT,
+    tamano_porcion DECIMAL(10, 2),
+    unidad_porcion VARCHAR(50) DEFAULT 'gramo'
+    -- Se pueden agregar más campos generales sobre el alimento si es necesario
 );
 
-CREATE TABLE `db_personas`.`personas` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-    `cedula` VARCHAR(20) NOT NULL UNIQUE,
-    `nombre` VARCHAR(250) NOT NULL,
-    `estado` INT NOT NULL,
-    `fecha` DATETIME NOT NULL,
-    `activo` BIT NOT NULL,
-    PRIMARY KEY(`id`),
-    CONSTRAINT `fk_personas__estados` FOREIGN KEY (`estado`) REFERENCES `estados`(`id`)
+-- Tabla que contiene la lista de todos los nutrientes
+CREATE TABLE nutrientes (
+    id_nutriente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_nutriente VARCHAR(100) NOT NULL UNIQUE,
+    unidad_medida VARCHAR(20) NOT NULL
 );
 
-INSERT INTO `db_personas`.`estados` (`nombre`) VALUES ('Casad@s');
-INSERT INTO `db_personas`.`estados` (`nombre`) VALUES ('Solter@s');
-INSERT INTO `db_personas`.`estados` (`nombre`) VALUES ('Vioud@s');
-INSERT INTO `db_personas`.`estados` (`nombre`) VALUES ('Separados@s');
-INSERT INTO `db_personas`.`estados` (`nombre`) VALUES ('Lo que importa es que Diosito me quiere');
+-- Tabla que relaciona los alimentos con sus nutrientes y la cantidad por porción
+CREATE TABLE composicion_nutricional (
+    id_composicion INT PRIMARY KEY AUTO_INCREMENT,
+    id_alimento INT NOT NULL,
+    id_nutriente INT NOT NULL,
+    cantidad DECIMAL(10, 3) NOT NULL,
+    FOREIGN KEY (id_alimento) REFERENCES alimentos(id_alimento),
+    FOREIGN KEY (id_nutriente) REFERENCES nutrientes(id_nutriente),
+    UNIQUE KEY `unica_composicion` (`id_alimento`, `id_nutriente`)
+);
 
-INSERT INTO `db_personas`.`personas` (`cedula`,`nombre`,`estado`,`fecha`,`activo`) 
-VALUES ('87987497','Pepito Perez',1,NOW(),1);
-INSERT INTO `db_personas`.`personas` (`cedula`,`nombre`,`estado`,`fecha`,`activo`) 
-VALUES ('12354646','Susana Lopez',2,NOW(),0);
-
-DELIMITER $$
-CREATE PROCEDURE `db_personas`.`proc_select_estados`()
-BEGIN
-    SELECT `id`,
-        `nombre`
-    FROM `db_personas`.`estados`;
-END$$
-
-DELIMITER $$
-CREATE PROCEDURE `db_personas`.`proc_insert_estados`(
-    IN `Nombre` VARCHAR(50),
-    INOUT `Respuesta` INT
-)
-BEGIN
-    INSERT INTO `db_personas`.`estados` (`nombre`) 
-    VALUES (`Nombre`);
-
-    SET `Respuesta` = 0;
-END$$
+-- Tabla para relacionar alimentos con sus fuentes de datos nutricionales
+CREATE TABLE alimentos_fuentes (
+    id_alimento_fuente INT PRIMARY KEY AUTO_INCREMENT,
+    id_alimento INT NOT NULL,
+    id_fuente INT NOT NULL,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_alimento) REFERENCES alimentos(id_alimento),
+    FOREIGN KEY (id_fuente) REFERENCES fuentes_datos(id_fuente),
+    UNIQUE KEY `unica_alimento_fuente` (`id_alimento`, `id_fuente`)
+);
