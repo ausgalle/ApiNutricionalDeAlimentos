@@ -105,30 +105,86 @@ CREATE TABLE alimentos_etiquetas (
     UNIQUE KEY `unica_alimento_etiqueta` (`id_alimento`, `id_etiqueta`)
 );
 
--- Tabla 11 para almacenar información sobre alérgenos
-CREATE TABLE alergenos (
-    id_alergeno INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_alergeno VARCHAR(100) NOT NULL UNIQUE,
-    descripcion TEXT
-);
-
--- Tabla 12 para relacionar alimentos con los alérgenos que contienen
-CREATE TABLE alimentos_alergenos (
-    id_alimento_alergeno INT PRIMARY KEY AUTO_INCREMENT,
-    id_alimento INT NOT NULL,
-    id_alergeno INT NOT NULL,
-    contiene BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (id_alimento) REFERENCES alimentos(id_alimento),
-    FOREIGN KEY (id_alergeno) REFERENCES alergenos(id_alergeno),
-    UNIQUE KEY `unica_alimento_alergeno` (`id_alimento`, `id_alergeno`)
-);
-
 -- Tabla 13 para almacenar información de usuarios de la API (si es necesario)
+-- Tabla para almacenar la información de los usuarios
 CREATE TABLE usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(50) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE,
+    id_rol INT DEFAULT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    ultimo_login TIMESTAMP
+    ultimo_login TIMESTAMP,
+    activo BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );
+
+-- Tabla para almacenar los roles de los usuarios
+CREATE TABLE roles (
+    id_rol INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_rol VARCHAR(50) NOT NULL UNIQUE,
+    descripcion TEXT,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabla para almacenar los diferentes permisos del sistema
+CREATE TABLE permisos (
+    id_permiso INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_permiso VARCHAR(100) NOT NULL UNIQUE,
+    descripcion TEXT,
+    nombre_corto VARCHAR(50) UNIQUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabla para relacionar roles con los permisos que tienen asignados
+CREATE TABLE roles_permisos (
+    id_rol_permiso INT PRIMARY KEY AUTO_INCREMENT,
+    id_rol INT NOT NULL,
+    id_permiso INT NOT NULL,
+    FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
+    FOREIGN KEY (id_permiso) REFERENCES permisos(id_permiso),
+    UNIQUE KEY `unica_rol_permiso` (`id_rol`, `id_permiso`)
+);
+
+-- SCRIPTS DE PROCEDIMIENTOS DE ALMACENADO
+
+-- Delimitador para poder definir el procedimiento almacenado completo
+DELIMITER //
+
+-- Creación del procedimiento almacenado llamado 'insertar_alimento'
+CREATE PROCEDURE insertar_alimento (
+    IN p_nombre_comun VARCHAR(255),
+    IN p_nombre_cientifico VARCHAR(255),
+    IN p_descripcion TEXT,
+    IN p_tamano_porcion DECIMAL(10, 2),
+    IN p_unidad_porcion VARCHAR(50),
+    IN p_imagen_url VARCHAR(255),
+    IN p_notas TEXT
+)
+BEGIN
+    -- Insertar los datos en la tabla 'alimentos'
+    INSERT INTO alimentos (
+        nombre_comun,
+        nombre_cientifico,
+        descripcion,
+        tamano_porcion,
+        unidad_porcion,
+        imagen_url,
+        notas
+    )
+    VALUES (
+        p_nombre_comun,
+        p_nombre_cientifico,
+        p_descripcion,
+        p_tamano_porcion,
+        p_unidad_porcion,
+        p_imagen_url,
+        p_notas
+    );
+
+    SELECT LAST_INSERT_ID();
+END //
+
+DELIMITER ;
