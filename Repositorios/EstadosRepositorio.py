@@ -1,5 +1,5 @@
 import pyodbc;
-from Entidades import Estados;
+from Entidades import Alimento;
 from Utilidades import Configuracion;
 
 class EstadosRepositorio:
@@ -14,7 +14,7 @@ class EstadosRepositorio:
 
 			lista: list = [];
 			for elemento in cursor:
-				entidad: Estados = Estados.Estados();
+				entidad: Alimento = Alimento.Estados();
 				entidad.SetId(elemento[0]);
 				entidad.SetNombre(elemento[1]);
 				lista.append(entidad);
