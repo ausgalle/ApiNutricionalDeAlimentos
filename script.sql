@@ -123,8 +123,8 @@ CREATE TABLE roles (
     id_rol INT PRIMARY KEY AUTO_INCREMENT,
     nombre_rol VARCHAR(50) NOT NULL UNIQUE,
     descripcion TEXT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla 13 para almacenar información de usuarios de la API (si es necesario)
@@ -135,7 +135,7 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE,
     id_rol INT DEFAULT NULL,
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
     ultimo_login DATETIME,
     activo BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
