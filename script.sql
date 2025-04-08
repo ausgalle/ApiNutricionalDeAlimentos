@@ -24,6 +24,12 @@ INSERT INTO alimentos (nombre_comun, nombre_cientifico, descripcion, tamano_porc
 ('Espinaca', 'Spinacia oleracea', 'Vegetal de hoja verde rico en hierro.', 100.00, 'gramo', 'https://example.com/espinaca.jpg', 'Consumir cocida o cruda.'); 
 
 
+CREATE TABLE nutrientes (
+    id_nutriente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_nutriente VARCHAR(100) NOT NULL UNIQUE,
+    unidad_medida VARCHAR(20) NOT NULL
+);
+
 -- Tabla 2 que relaciona los alimentos con sus nutrientes y la cantidad por porción
 CREATE TABLE composicion_nutricional (
     id_composicion INT PRIMARY KEY AUTO_INCREMENT,
@@ -60,8 +66,8 @@ CREATE TABLE fuentes_datos (
     nombre_fuente VARCHAR(255) NOT NULL UNIQUE,
     descripcion_fuente TEXT,
     url_fuente VARCHAR(255),
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla 6 para relacionar alimentos con sus fuentes de datos nutricionales
@@ -112,6 +118,15 @@ CREATE TABLE alimentos_etiquetas (
     UNIQUE KEY `unica_alimento_etiqueta` (`id_alimento`, `id_etiqueta`)
 );
 
+-- Tabla para almacenar los roles de los usuarios
+CREATE TABLE roles (
+    id_rol INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_rol VARCHAR(50) NOT NULL UNIQUE,
+    descripcion TEXT,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Tabla 13 para almacenar información de usuarios de la API (si es necesario)
 -- Tabla para almacenar la información de los usuarios
 CREATE TABLE usuarios (
@@ -121,18 +136,9 @@ CREATE TABLE usuarios (
     email VARCHAR(100) UNIQUE,
     id_rol INT DEFAULT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    ultimo_login TIMESTAMP,
+    ultimo_login DATETIME,
     activo BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
-);
-
--- Tabla para almacenar los roles de los usuarios
-CREATE TABLE roles (
-    id_rol INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_rol VARCHAR(50) NOT NULL UNIQUE,
-    descripcion TEXT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla para almacenar los diferentes permisos del sistema
