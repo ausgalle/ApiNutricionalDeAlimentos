@@ -5,11 +5,11 @@ import datetime;
 
 class Repositorio:
 
-	def ListarEstados(self) -> None:
+	def ListarAlimentos(self) -> None:
 		try:
 			conexion = pyodbc.connect(Configuracion.Configuracion.strConnection);
 
-			consulta: str = """SELECT * FROM estados""";
+			consulta: str = """SELECT * FROM alimentos""";
 			cursor = conexion.cursor();
 			cursor.execute(consulta);
 
