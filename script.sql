@@ -17,21 +17,7 @@ CREATE TABLE alimentos (
     fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Tabla 2 que contiene la información general de cada alimento
-CREATE TABLE alimentos (
-    id_alimento INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_comun VARCHAR(255) NOT NULL UNIQUE,
-    nombre_cientifico VARCHAR(255),
-    descripcion TEXT,
-    tamano_porcion DECIMAL(10, 2),
-    unidad_porcion VARCHAR(50) DEFAULT 'gramo',
-    imagen_url VARCHAR(255),
-    notas TEXT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
--- Tabla 3 que relaciona los alimentos con sus nutrientes y la cantidad por porción
+-- Tabla 2 que relaciona los alimentos con sus nutrientes y la cantidad por porción
 CREATE TABLE composicion_nutricional (
     id_composicion INT PRIMARY KEY AUTO_INCREMENT,
     id_alimento INT NOT NULL,
@@ -44,14 +30,14 @@ CREATE TABLE composicion_nutricional (
     UNIQUE KEY `unica_composicion` (`id_alimento`, `id_nutriente`)
 );
 
--- Tabla 4 para clasificar los alimentos en diferentes categorías
+-- Tabla 3 para clasificar los alimentos en diferentes categorías
 CREATE TABLE categorias_alimentos (
     id_categoria INT PRIMARY KEY AUTO_INCREMENT,
     nombre_categoria VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT
 );
 
--- Tabla 5 para relacionar alimentos con sus categorías
+-- Tabla 4 para relacionar alimentos con sus categorías
 CREATE TABLE alimentos_categorias (
     id_alimento_categoria INT PRIMARY KEY AUTO_INCREMENT,
     id_alimento INT NOT NULL,
@@ -61,7 +47,7 @@ CREATE TABLE alimentos_categorias (
     UNIQUE KEY `unica_alimento_categoria` (`id_alimento`, `id_categoria`)
 );
 
--- Tabla 6 para rastrear la fuente de los datos nutricionales
+-- Tabla 5 para rastrear la fuente de los datos nutricionales
 CREATE TABLE fuentes_datos (
     id_fuente INT PRIMARY KEY AUTO_INCREMENT,
     nombre_fuente VARCHAR(255) NOT NULL UNIQUE,
@@ -71,7 +57,7 @@ CREATE TABLE fuentes_datos (
     fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Tabla 7 para relacionar alimentos con sus fuentes de datos nutricionales
+-- Tabla 6 para relacionar alimentos con sus fuentes de datos nutricionales
 CREATE TABLE alimentos_fuentes (
     id_alimento_fuente INT PRIMARY KEY AUTO_INCREMENT,
     id_alimento INT NOT NULL,
@@ -83,7 +69,7 @@ CREATE TABLE alimentos_fuentes (
     UNIQUE KEY `unica_alimento_fuente` (`id_alimento`, `id_fuente`)
 );
 
--- Tabla 8 para almacenar las diferentes unidades de medida utilizadas
+-- Tabla 7 para almacenar las diferentes unidades de medida utilizadas
 CREATE TABLE unidades_medida (
     id_unidad INT PRIMARY KEY AUTO_INCREMENT,
     nombre_unidad VARCHAR(50) NOT NULL UNIQUE,
@@ -91,7 +77,7 @@ CREATE TABLE unidades_medida (
     descripcion TEXT
 );
 
--- Tabla 9 para relacionar nutrientes con sus unidades de medida comunes (si es necesario)
+-- Tabla 8 para relacionar nutrientes con sus unidades de medida comunes (si es necesario)
 CREATE TABLE nutrientes_unidades (
     id_nutriente_unidad INT PRIMARY KEY AUTO_INCREMENT,
     id_nutriente INT NOT NULL,
@@ -102,14 +88,14 @@ CREATE TABLE nutrientes_unidades (
     UNIQUE KEY `unica_nutriente_unidad` (`id_nutriente`, `id_unidad`)
 );
 
--- Tabla 10 para definir etiquetas nutricionales
+-- Tabla 9 para definir etiquetas nutricionales
 CREATE TABLE etiquetas_nutricionales (
     id_etiqueta INT PRIMARY KEY AUTO_INCREMENT,
     nombre_etiqueta VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT
 );
 
--- Tabla 11 para relacionar alimentos con sus etiquetas nutricionales
+-- Tabla 10 para relacionar alimentos con sus etiquetas nutricionales
 CREATE TABLE alimentos_etiquetas (
     id_alimento_etiqueta INT PRIMARY KEY AUTO_INCREMENT,
     id_alimento INT NOT NULL,
@@ -119,14 +105,14 @@ CREATE TABLE alimentos_etiquetas (
     UNIQUE KEY `unica_alimento_etiqueta` (`id_alimento`, `id_etiqueta`)
 );
 
--- Tabla 12 para almacenar información sobre alérgenos
+-- Tabla 11 para almacenar información sobre alérgenos
 CREATE TABLE alergenos (
     id_alergeno INT PRIMARY KEY AUTO_INCREMENT,
     nombre_alergeno VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT
 );
 
--- Tabla 13 para relacionar alimentos con los alérgenos que contienen
+-- Tabla 12 para relacionar alimentos con los alérgenos que contienen
 CREATE TABLE alimentos_alergenos (
     id_alimento_alergeno INT PRIMARY KEY AUTO_INCREMENT,
     id_alimento INT NOT NULL,
@@ -137,7 +123,7 @@ CREATE TABLE alimentos_alergenos (
     UNIQUE KEY `unica_alimento_alergeno` (`id_alimento`, `id_alergeno`)
 );
 
--- Tabla 14 para almacenar información de usuarios de la API (si es necesario)
+-- Tabla 13 para almacenar información de usuarios de la API (si es necesario)
 CREATE TABLE usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(50) NOT NULL UNIQUE,
