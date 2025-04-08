@@ -1,6 +1,6 @@
 import datetime;
 import decimal;
-import Estados;
+import Entidades.Alimento as Alimento;
 
 class Personas:
 	id: int = 0;
@@ -45,9 +45,9 @@ class Personas:
 	def SetActivo(self, value: bool) -> None:
 		self.activo = value;
 
-	_estado: Estados = None;
+	_estado: Alimento = None;
 
-	def Get_Estado(self) -> Estados:
+	def Get_Estado(self) -> Alimento:
 		return self._estado;
-	def Set_Estado(self, value: Estados) -> None:
+	def Set_Estado(self, value: Alimento) -> None:
 		self._estado = value;

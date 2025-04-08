@@ -1,5 +1,5 @@
 import pyodbc;
-from Entidades import Estados;
+from Entidades import Alimento;
 from Utilidades import Configuracion;
 import datetime;
 
@@ -31,7 +31,7 @@ class Repositorio:
 
 			lista: list = [];
 			for elemento in cursor:
-				entidad: Estados = Estados.Estados();
+				entidad: Alimento = Alimento.Estados();
 				entidad.SetId(elemento[0]);
 				entidad.SetNombre(elemento[1]);
 				lista.append(entidad);
@@ -92,7 +92,7 @@ class Repositorio:
 
 			lista: list = [];
 			for elemento in cursor:
-				entidad: Estados = Estados.Estados();
+				entidad: Alimento = Alimento.Estados();
 				entidad.SetId(elemento[0]);
 				entidad.SetNombre(elemento[1]);
 				lista.append(entidad);
