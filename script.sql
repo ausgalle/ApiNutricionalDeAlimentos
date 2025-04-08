@@ -13,9 +13,16 @@ CREATE TABLE alimentos (
     unidad_porcion VARCHAR(50) DEFAULT 'gramo',
     imagen_url VARCHAR(255),
     notas TEXT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
 );
+
+-- Insertar datos de ejemplo en la tabla alimentos
+INSERT INTO alimentos (nombre_comun, nombre_cientifico, descripcion, tamano_porcion, unidad_porcion, imagen_url, notas) VALUES
+('Manzana', 'Malus domestica', 'Fruta dulce y crujiente.', 100.00, 'gramo', 'https://example.com/manzana.jpg', 'Consumir fresca.'),
+('Banana', 'Musa acuminata', 'Fruta amarilla rica en potasio.', 100.00, 'gramo', 'https://example.com/banana.jpg', 'Ideal para batidos.'),
+('Espinaca', 'Spinacia oleracea', 'Vegetal de hoja verde rico en hierro.', 100.00, 'gramo', 'https://example.com/espinaca.jpg', 'Consumir cocida o cruda.'); 
+
 
 -- Tabla 2 que relaciona los alimentos con sus nutrientes y la cantidad por porción
 CREATE TABLE composicion_nutricional (
