@@ -1,29 +1,24 @@
 import pyodbc
-from Entidades import Nutriente  # Asegúrate de que esta importación sea correcta
+from Entidades.Nutriente import Nutriente
+from Entidades.NutrienteUnidad import NutrienteUnidad
 from Utilidades import Configuracion
 
 class RepositorioNutriente:
 
-    def ListarNutrientes(self) -> list[Nutriente]:
-        lista_nutrientes = []
+    def ListarNutrientes(self) -> None:
         try:
             conexion = pyodbc.connect(Configuracion.Configuracion.strConnection)
             consulta: str = """SELECT id_nutriente, nombre_nutriente, unidad_medida FROM nutrientes"""
             cursor = conexion.cursor()
             cursor.execute(consulta)
 
-            for row in cursor:
-                nutriente = Nutriente()
-                nutriente.SetIdNutriente(row[0])
-                nutriente.SetNombreNutriente(row[1])
-                nutriente.SetUnidadMedida(row[2])
-                lista_nutrientes.append(nutriente)
+            for elemento in cursor:
+                print(elemento);
 
             cursor.close()
             conexion.close()
         except Exception as ex:
-            print(f"Error al listar nutrientes: {ex}")
-        return lista_nutrientes
+            print(str(ex));
 
     def ObtenerNutrientePorId(self, id_nutriente: int) -> Nutriente | None:
         nutriente = None
@@ -40,6 +35,7 @@ class RepositorioNutriente:
                 nutriente.SetNombreNutriente(row[1])
                 nutriente.SetUnidadMedida(row[2])
 
+            print(row);
             cursor.close()
             conexion.close()
         except Exception as ex:
