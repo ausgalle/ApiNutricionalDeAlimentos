@@ -165,19 +165,18 @@ CREATE TABLE roles_permisos (
 
 -- Delimitador para poder definir el procedimiento almacenado completo
 DELIMITER //
-
--- Creación del procedimiento almacenado llamado 'insertar_alimento'
-CREATE PROCEDURE insertar_alimento (
+CREATE PROCEDURE proc_insert_alimento (
     IN p_nombre_comun VARCHAR(255),
     IN p_nombre_cientifico VARCHAR(255),
     IN p_descripcion TEXT,
-    IN p_tamano_porcion DECIMAL(10, 2),
+    IN p_tamano_porcion DECIMAL(10,5),
     IN p_unidad_porcion VARCHAR(50),
     IN p_imagen_url VARCHAR(255),
-    IN p_notas TEXT
+    IN p_notas TEXT,
+    IN p_fecha_creacion DATETIME,
+    IN p_fecha_actualizacion DATETIME
 )
 BEGIN
-    -- Insertar los datos en la tabla 'alimentos'
     INSERT INTO alimentos (
         nombre_comun,
         nombre_cientifico,
@@ -185,7 +184,9 @@ BEGIN
         tamano_porcion,
         unidad_porcion,
         imagen_url,
-        notas
+        notas,
+        fecha_creacion,
+        fecha_actualizacion
     )
     VALUES (
         p_nombre_comun,
@@ -194,10 +195,9 @@ BEGIN
         p_tamano_porcion,
         p_unidad_porcion,
         p_imagen_url,
-        p_notas
+        p_notas,
+        p_fecha_creacion,
+        p_fecha_actualizacion
     );
-
-    SELECT LAST_INSERT_ID();
 END //
-
 DELIMITER ;
