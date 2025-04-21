@@ -3,6 +3,6 @@ class Configuracion:
 		Driver={MySQL ODBC 9.2 Unicode Driver};
 		Server=localhost;
 		Database=db_nutricional;
-		PORT=3306;
+		PORT=3340;
 		user=user_ptyhon;
 		password=Clas3s1Nt2024_!""";
