@@ -243,3 +243,17 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE proc_insert_nutriente (
+    IN p_nombre_nutriente VARCHAR(100),
+    IN p_unidad_medida VARCHAR(20)
+)
+BEGIN
+    INSERT INTO nutrientes (nombre_nutriente, unidad_medida)
+    VALUES (p_nombre_nutriente, p_unidad_medida);
+END //
+
+DELIMITER ;
