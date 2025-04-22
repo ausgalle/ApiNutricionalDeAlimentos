@@ -1,5 +1,7 @@
 from Entidades.Alimento import Alimento
+from Entidades.Nutriente import Nutriente
 from Repositorios import Repositorio;
+from Repositorios import RepositorioNutriente;
 
 repositorio = Repositorio.Repositorio();
 
@@ -34,12 +36,20 @@ repositorio = Repositorio.Repositorio();
 # # Llamar al método para actualizar el alimento
 # repositorio.ActualizarAlimento(alimento)
 
+# # Insertar nutriente
+repositorio_nutriente = RepositorioNutriente.RepositorioNutriente()
+nutriente = Nutriente()
+nutriente.SetNombreNutriente("Vitamina D")
+nutriente.SetUnidadMedida("mg")
+repositorio_nutriente.InsertarNutriente(nutriente)
+print("Nutriente insertado.")
 
 
-repositorio.EliminarAlimento(6)
+
+# repositorio.EliminarAlimento(6)
 
 #Listar alimentos
-repositorio.ListarAlimentos();
+# repositorio.ListarAlimentos();
 
 
 
