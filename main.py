@@ -33,8 +33,14 @@ repositorio = Repositorio.Repositorio();
 # alimento.SetNotas("Perfecta para un snack energético.")
 # alimento.SetFechaCreacion("2023-01-01 12:00:00")
 
-# # Llamar al método para actualizar el alimento
 # repositorio.ActualizarAlimento(alimento)
+
+
+# repositorio.EliminarAlimento(6)
+
+#Listar alimentos
+# repositorio.ListarAlimentos();
+
 
 # # Insertar nutriente
 repositorio_nutriente = RepositorioNutriente.RepositorioNutriente()
@@ -43,13 +49,6 @@ nutriente.SetNombreNutriente("Vitamina D")
 nutriente.SetUnidadMedida("mg")
 repositorio_nutriente.InsertarNutriente(nutriente)
 print("Nutriente insertado.")
-
-
-
-# repositorio.EliminarAlimento(6)
-
-#Listar alimentos
-# repositorio.ListarAlimentos();
 
 
 
