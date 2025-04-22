@@ -36,6 +36,8 @@ repositorio = Repositorio.Repositorio();
 
 
 
+repositorio.EliminarAlimento(6)
+
 #Listar alimentos
 repositorio.ListarAlimentos();
 

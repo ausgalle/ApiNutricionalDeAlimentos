@@ -232,3 +232,14 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_delete_alimento(IN p_id_alimento INT)
+BEGIN
+    DELETE FROM alimentos
+    WHERE id_alimento = p_id_alimento;
+END $$
+
+DELIMITER ;

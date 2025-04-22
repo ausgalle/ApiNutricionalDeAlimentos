@@ -82,3 +82,28 @@ class Repositorio:
 
 		except Exception as ex:
 			print("Error al actualizar alimento:", str(ex))
+   
+   
+	def EliminarAlimento(self, id_alimento: int) -> None:
+		try:
+			# Establece la conexión con la base de datos
+			conexion = pyodbc.connect(Configuracion.Configuracion.strConnection)
+			cursor = conexion.cursor()
+
+			# Consulta para eliminar un alimento usando un procedimiento almacenado
+			consulta: str = "{CALL proc_delete_alimento(?)}"
+
+			# Parámetros para la eliminación
+			parametros = (id_alimento,)
+
+			# Ejecuta la consulta
+			cursor.execute(consulta, parametros)
+			conexion.commit()  # Confirma los cambios
+
+			cursor.close()
+			conexion.close()
+
+			print("Alimento eliminado correctamente.")
+
+		except Exception as ex:
+			print("Error al eliminar alimento:", str(ex))
