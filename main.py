@@ -41,9 +41,15 @@ repositorio = Repositorio.Repositorio();
 #Listar alimentos
 # repositorio.ListarAlimentos();
 
+# # Listar nutrientes
+repositorio_nutriente = RepositorioNutriente.RepositorioNutriente();
+nutrienteRepo.ListarNutrientes();
+
+# # Listar nutrientes por ID
+repositorio_nutriente = RepositorioNutriente.RepositorioNutriente();
+nutrienteRepo.ObtenerNutrientePorId(1);
 
 # # Insertar nutriente
-repositorio_nutriente = RepositorioNutriente.RepositorioNutriente()
 nutriente = Nutriente()
 nutriente.SetNombreNutriente("Vitamina D")
 nutriente.SetUnidadMedida("mg")
