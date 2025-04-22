@@ -42,19 +42,24 @@ class RepositorioNutriente:
             print(f"Error al obtener nutriente por ID: {ex}")
         return nutriente
 
-    def InsertarNutriente(self, nutriente: Nutriente) -> bool:
+    def InsertarNutriente(self, nutriente: Nutriente) -> None:
         try:
             conexion = pyodbc.connect(Configuracion.Configuracion.strConnection)
-            consulta: str = """INSERT INTO nutrientes (nombre_nutriente, unidad_medida) VALUES (?, ?)"""
             cursor = conexion.cursor()
-            cursor.execute(consulta, (nutriente.GetNombreNutriente(), nutriente.GetUnidadMedida()))
+
+            consulta: str = "{CALL proc_insert_nutriente(?, ?)}"
+            parametros = (
+                nutriente.GetNombreNutriente(),
+                nutriente.GetUnidadMedida()
+            )
+
+            cursor.execute(consulta, parametros)
             conexion.commit()
+
             cursor.close()
             conexion.close()
-            return True
         except Exception as ex:
-            print(f"Error al insertar nutriente: {ex}")
-            return False
+            print("Error al insertar nutriente:", str(ex))
 
     def ActualizarNutriente(self, nutriente: Nutriente) -> bool:
         try:
