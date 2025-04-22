@@ -201,3 +201,34 @@ BEGIN
     );
 END //
 DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_update_alimento(
+    IN p_id_alimento INT,
+    IN p_nombre_comun VARCHAR(255),
+    IN p_nombre_cientifico VARCHAR(255),
+    IN p_descripcion TEXT,
+    IN p_tamano_porcion DECIMAL(10, 2),
+    IN p_unidad_porcion VARCHAR(50),
+    IN p_imagen_url VARCHAR(255),
+    IN p_notas TEXT,
+    IN p_fecha_actualizacion DATETIME,
+    IN p_fecha_creacion DATETIME
+)
+BEGIN
+    UPDATE alimentos
+    SET
+        nombre_comun = p_nombre_comun,
+        nombre_cientifico = p_nombre_cientifico,
+        descripcion = p_descripcion,
+        tamano_porcion = p_tamano_porcion,
+        unidad_porcion = p_unidad_porcion,
+        imagen_url = p_imagen_url,
+        notas = p_notas,
+        fecha_actualizacion = p_fecha_actualizacion
+    WHERE id_alimento = p_id_alimento;
+END $$
+
+DELIMITER ;
