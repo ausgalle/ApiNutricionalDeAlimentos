@@ -6,18 +6,18 @@ from Repositorios import RepositorioNutriente;
 repositorio = Repositorio.Repositorio();
 
 
-# # # Insertar alimento
+# # Insertar alimento
 
-# alimento = Alimento()
-# alimento.SetNombreComun("BananaDos")
-# alimento.SetNombreCientifico("Musa spp.")
-# alimento.SetDescripcion("Fruta tropical rica en potasio.")
-# alimento.SetTamanoPorcion(120.0)
-# alimento.SetUnidadPorcion("gramos")
-# alimento.SetImagenUrl("https://example.com/imagenes/banana.jpg")
-# alimento.SetNotas("Perfecta para un snack energético.")
+alimento = Alimento()
+alimento.SetNombreComun("Peras2")
+alimento.SetNombreCientifico("Musa spp.")
+alimento.SetDescripcion("Fruta tropical rica en potasio.")
+alimento.SetTamanoPorcion(120.0)
+alimento.SetUnidadPorcion("gramos")
+alimento.SetImagenUrl("https://example.com/imagenes/banana.jpg")
+alimento.SetNotas("Perfecta para un snack energético.")
 
-# repositorio.InsertarAlimento(alimento);
+repositorio.InsertarAlimento(alimento);
 
 
 #Actualizar alimento
@@ -39,16 +39,16 @@ repositorio = Repositorio.Repositorio();
 # repositorio.EliminarAlimento(6)
 
 #Listar alimentos
-# repositorio.ListarAlimentos();
+repositorio.ListarAlimentos();
 
 
 # # Insertar nutriente
-repositorio_nutriente = RepositorioNutriente.RepositorioNutriente()
-nutriente = Nutriente()
-nutriente.SetNombreNutriente("Vitamina D")
-nutriente.SetUnidadMedida("mg")
-repositorio_nutriente.InsertarNutriente(nutriente)
-print("Nutriente insertado.")
+# repositorio_nutriente = RepositorioNutriente.RepositorioNutriente()
+# nutriente = Nutriente()
+# nutriente.SetNombreNutriente("Vitamina D")
+# nutriente.SetUnidadMedida("mg")
+# repositorio_nutriente.InsertarNutriente(nutriente)
+# print("Nutriente insertado.")
 
 
 
