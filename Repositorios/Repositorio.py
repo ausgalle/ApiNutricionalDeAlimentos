@@ -4,7 +4,9 @@ from Utilidades import Configuracion;
 import datetime
 
 class Repositorio:
-
+    
+    
+	# Alimentos
 	def ListarAlimentos(self) -> None:
 		try:
 			conexion = pyodbc.connect(Configuracion.Configuracion.strConnection);
