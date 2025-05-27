@@ -72,7 +72,6 @@ class RepositorioNutriente:
             if row:
                 nutriente = Nutriente()
                 nutriente.SetIdNutriente(row[0])
-                print(row[1]);
                 nombre_desencriptado = seguridad_string.Descifrar(row[1])
                 nutriente.SetNombreNutriente(nombre_desencriptado)
                 nutriente.SetUnidadMedida(row[2])

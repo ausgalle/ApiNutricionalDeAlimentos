@@ -147,8 +147,8 @@ CREATE TABLE permisos (
     nombre_permiso VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT,
     nombre_corto VARCHAR(50) UNIQUE,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla 16 para relacionar roles con los permisos que tienen asignados
