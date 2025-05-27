@@ -9,7 +9,8 @@ def main():
         print("\n--- Gestión de Usuarios ---")
         print("1. Insertar Usuario")
         print("2. Obtener Usuario por ID")
-        print("3. Salir")
+        print("3. Listar Nurtrientes")
+        print("4. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -61,7 +62,16 @@ def main():
             except Exception as e:
                 print(f"Error al obtener o descifrar el usuario: {e}")
 
-        elif opcion == '3':
+        elif opcion == '2':
+            # --- Obtener Usuario por ID ---
+            print("\n--- Lista de nutrientes ---")
+            try:
+                usuario_recuperado = repositorio_usuario.ListarUsuarios()
+
+            except Exception as e:
+                print(f"Error al obtener usuarios {e}")
+
+        elif opcion == '4':
             # --- Salir ---
             print("Saliendo del programa. ¡Hasta luego!")
             break

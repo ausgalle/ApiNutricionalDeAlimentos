@@ -17,12 +17,12 @@ def main():
         print("\n--- Gestión de Nutrientes ---")
         print("1. Insertar Nutriente")
         print("2. Obtener Nutriente por ID")
-        print("3. Salir")
+        print("3. Listar Nutrientes")
+        print("4. Salir")
 
         opcion = input("Seleccione una opción: ")
 
         if opcion == '1':
-            # --- Insert Nutriente ---
             print("\n--- Insertar Nuevo Nutriente (con encriptación) ---")
 
             nombre_nutriente_input = input("Ingrese el nombre del nutriente: ")
@@ -40,7 +40,6 @@ def main():
                 print(f"Error al insertar nutriente: {e}")
 
         elif opcion == '2':
-            # --- Obtener Nutriente por ID ---
             print("\n--- Obtener Nutriente por ID (y descifrar) ---")
             try:
                 nutriente_id = int(input("Ingrese el ID del nutriente a buscar: "))
@@ -58,12 +57,17 @@ def main():
                 print("ID inválido. Por favor, ingrese un número entero.")
             except Exception as e:
                 print(f"Error al obtener o descifrar el nutriente: {e}")
-                # You might want to print the full traceback for debugging:
-                # import traceback
-                # traceback.print_exc()
 
         elif opcion == '3':
-            # --- Salir ---
+            # --- Obtener Nutriente por ID ---
+            print("\n--- Obtener Nutrientes ---")
+            try:
+                repositorio_nutriente.ListarNutrientes()
+
+            except Exception as e:
+                print(f"Error al obtener o descifrar el nutriente: {e}")
+
+        elif opcion == '4':
             print("Saliendo del programa. ¡Hasta luego!")
             break
         else:
