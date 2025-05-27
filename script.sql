@@ -257,3 +257,85 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_insert_composicion_nutricional(
+    IN p_id_alimento INT,
+    IN p_id_nutriente INT,
+    IN p_cantidad DECIMAL(10,2),
+    IN p_valor_diario DECIMAL(10,2),
+    IN p_notas TEXT
+)
+BEGIN
+    INSERT INTO composicion_nutricional (
+        id_alimento,
+        id_nutriente,
+        cantidad,
+        valor_diario_porcentaje,
+        notas
+    ) VALUES (
+        p_id_alimento,
+        p_id_nutriente,
+        p_cantidad,
+        p_valor_diario,
+        p_notas
+    );
+END$$
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE proc_update_composicion_nutricional (
+	IN p_id INT,
+	IN p_id_alimento INT,
+	IN p_id_nutriente INT,
+	IN p_cantidad DECIMAL(10,2),
+	IN p_valor_diario_porcentaje DECIMAL(5,2),
+	IN p_notas TEXT
+)
+BEGIN
+	UPDATE composicion_nutricional
+	SET id_alimento = p_id_alimento,
+		id_nutriente = p_id_nutriente,
+		cantidad = p_cantidad,
+		valor_diario_porcentaje = p_valor_diario_porcentaje,
+		notas = p_notas
+	WHERE id = p_id;
+END //
+DELIMITER ;
+
+-- Elimina una composición por ID
+DELIMITER $$
+
+CREATE PROCEDURE proc_delete_composicion_nutricional(IN p_id_composicion INT)
+BEGIN
+    DELETE FROM composicion_nutricional
+    WHERE id_composicion = p_id_composicion;
+END $$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_insert_categoria_alimento (
+    IN p_nombre_categoria VARCHAR(100),
+    IN p_descripcion TEXT
+)
+BEGIN
+    INSERT INTO categorias_alimentos (
+        nombre_categoria,
+        descripcion,
+        fecha_actualizacion,
+        fecha_creacion
+    ) VALUES (
+        p_nombre_categoria,
+        p_descripcion,
+        NOW(),
+        NOW()
+    );
+END$$
+
+DELIMITER ;
